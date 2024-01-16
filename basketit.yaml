@@ -1,0 +1,242 @@
+openapi: 3.0.3
+info:
+  title: BasketIT API
+  description: APIs for interacting with sections and products of the grocery store.
+  version: 1.0.0
+servers:
+  - url: http://localhost:2345
+paths:
+  /api/sections/post:
+    post:
+      summary: Add a new section
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        '200':
+          description: Section added successfully
+        '400':
+          description: Bad request, missing or invalid parameters
+  /api/sections/{id}:
+    get:
+      summary: Get a section by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+        '404':
+          description: Section not found
+    put:
+      summary: Update a section
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        '200':
+          description: Section updated successfully
+        '400':
+          description: Bad request, missing or invalid parameters
+        '404':
+          description: Section not found
+    delete:
+      summary: Delete a section
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Section deleted successfully
+        '404':
+          description: Section not found
+  /api/products/post:
+    post:
+      summary: Add a new product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                manufacture_date:
+                  type: string
+                  format: date
+                expiry_date:
+                  type: string
+                  format: date
+                rate:
+                  type: number
+                stock:
+                  type: integer
+                owner:
+                  type: integer
+                section_id:
+                  type: integer
+      responses:
+        '201':
+          description: Product added successfully
+        '400':
+          description: Bad request, missing or invalid parameters
+  /api/products/{id}:
+    get:
+      summary: Get a product by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  manufacture_date:
+                    type: string
+                    format: date
+                  expiry_date:
+                    type: string
+                    format: date
+                  rate:
+                    type: number
+                  stock:
+                    type: integer
+                  owner:
+                    type: integer
+                  section_id:
+                    type: integer
+        '404':
+          description: Product not found
+    put:
+      summary: Update a product
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                manufacture_date:
+                  type: string
+                  format: date
+                expiry_date:
+                  type: string
+                  format: date
+                rate:
+                  type: number
+                stock:
+                  type: integer
+                owner:
+                  type: integer
+                section_id:
+                  type: integer
+      responses:
+        '200':
+          description: Product updated successfully
+        '400':
+          description: Bad request, missing or invalid parameters
+        '404':
+          description: Product not found
+    delete:
+      summary: Delete a product
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Product deleted successfully
+        '404':
+          description: Product not found
+  /api/sections/display:
+    get:
+      summary: Get sections to display
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+  /api/products/display:
+    get:
+      summary: Get products to display
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    rate:
+                      type: number
+                    stock:
+                      type: integer
